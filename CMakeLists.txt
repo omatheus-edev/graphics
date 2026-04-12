@@ -8,6 +8,7 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
     src/input.cpp
     src/triangle.cpp
+    src/shader.cpp
     src/glad.c
 )
 

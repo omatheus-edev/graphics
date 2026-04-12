@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "input.hpp"
 #include "triangle.hpp"
+#include "shader.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int heigh) {
     glViewport(0, 0, width, heigh);
@@ -28,18 +29,18 @@ int main() {
         return -1;
     }
     
+    Shader shader("shaders/triangle.vs", "shaders/triangle.fs");
     Triangle triangle;
     
-    triangle.createShaders();
     // VBOs (Vertex Buffer Objects) and VAOs (Vertex Array Objects)
     triangle.loadVerticesObjects();
     
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
         
-        glUseProgram(triangle.shaderProgram);
+        shader.use();
         glBindVertexArray(triangle.VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
         
         glfwSwapBuffers(window);
         glfwPollEvents();
