@@ -28,20 +28,19 @@ int main() {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-    
+
     Shader shader("shaders/triangle.vs", "shaders/triangle.fs");
     Triangle triangle;
-    
+
     // VBOs (Vertex Buffer Objects) and VAOs (Vertex Array Objects)
     triangle.loadVerticesObjects();
-    
+
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
-        
+
         shader.use();
-        glBindVertexArray(triangle.VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-        
+        triangle.draw();
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
