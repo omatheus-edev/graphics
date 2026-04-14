@@ -1,7 +1,6 @@
-#include <triangle.hpp>
+#include <geometry/triangle.hpp>
 
 void Triangle::loadVerticesObjects() {
-    unsigned int VBO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glBindVertexArray(VAO);

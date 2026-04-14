@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "input.hpp"
-#include "triangle.hpp"
+#include "geometry/triangle.hpp"
 #include "shader.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int heigh) {
@@ -31,7 +31,7 @@ int main() {
 
     Shader shader("shaders/triangle.vs", "shaders/triangle.fs");
     Triangle triangle;
-
+    
     // VBOs (Vertex Buffer Objects) and VAOs (Vertex Array Objects)
     triangle.loadVerticesObjects();
 
