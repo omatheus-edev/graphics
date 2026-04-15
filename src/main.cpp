@@ -4,6 +4,7 @@
 #include "input.hpp"
 #include "geometry/triangle.hpp"
 #include "shader.hpp"
+#include "geometry/circle.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int heigh) {
     glViewport(0, 0, width, heigh);
@@ -30,16 +31,17 @@ int main() {
     }
 
     Shader shader("shaders/triangle.vs", "shaders/triangle.fs");
-    Triangle triangle;
+    Circle circle(0.75f, 64);
+    // Triangle triangle;
     
     // VBOs (Vertex Buffer Objects) and VAOs (Vertex Array Objects)
-    triangle.loadVerticesObjects();
+    // triangle.loadVerticesObjects();
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
 
         shader.use();
-        triangle.draw();
+        circle.draw();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

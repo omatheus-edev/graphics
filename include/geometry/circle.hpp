@@ -4,12 +4,14 @@
 
 class Circle final : Geometry {
 public: 
+    Circle(float radius, unsigned int segments);
 
     void loadVerticesObjects() override;
 
     void draw() override;
+
 private:
     float radius;
     
-    int segment;
+    unsigned int segments;
 };
