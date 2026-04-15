@@ -1,4 +1,10 @@
 #include <geometry/triangle.hpp>
+#include <glad/glad.h>
+
+
+Triangle::Triangle() {
+    loadVerticesObjects();
+}
 
 void Triangle::loadVerticesObjects() {
     glGenVertexArrays(1, &VAO);

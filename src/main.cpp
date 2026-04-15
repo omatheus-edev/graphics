@@ -31,17 +31,15 @@ int main() {
     }
 
     Shader shader("shaders/triangle.vs", "shaders/triangle.fs");
-    Circle circle(0.75f, 64);
-    // Triangle triangle;
+    // Circle circle(0.75f, 64);
+    Triangle triangle;
     
-    // VBOs (Vertex Buffer Objects) and VAOs (Vertex Array Objects)
-    // triangle.loadVerticesObjects();
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
 
         shader.use();
-        circle.draw();
+        triangle.draw();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

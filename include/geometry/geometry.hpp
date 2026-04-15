@@ -1,7 +1,5 @@
 #pragma once
 
-#include <glad/glad.h>
-
 class Geometry {
 public:
     virtual ~Geometry() = default;
@@ -10,7 +8,8 @@ public:
 
     unsigned int VAO = 0;
 
-    virtual void loadVerticesObjects() = 0;
-
     virtual void draw() = 0;
+
+protected:
+    virtual void loadVerticesObjects() = 0;
 };

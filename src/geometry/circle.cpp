@@ -1,4 +1,5 @@
 #include "geometry/circle.hpp"
+#include <glad/glad.h>
 #include <cmath>
 #include <vector>
 
