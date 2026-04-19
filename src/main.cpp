@@ -5,6 +5,7 @@
 #include "geometry/triangle.hpp"
 #include "shader.hpp"
 #include "geometry/circle.hpp"
+#include "geometry/curve.hpp"
 #include "geometry/line.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int heigh) {
@@ -39,20 +40,25 @@ int main() {
     Line l2({0.0f, 0.5f}, {0.5f, -0.5f});
     Line l3({0.5f, -0.5f}, {-0.5f, -0.5f});
 
+    Curve curve(-5.0f, 5.0f, 0.02f);
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
+        glClear(GL_COLOR_BUFFER_BIT);
 
-        triangleShader.use();
-        triangle.draw();
+        // triangleShader.use();
+        // triangle.draw();
 
         lineShader.use();
-        glUniform3f(glGetUniformLocation(lineShader.id, "lineColor"), 1.0f, 1.0f, 1.0f);
+        // glUniform3f(glGetUniformLocation(lineShader.id, "lineColor"), 1.0f, 1.0f, 1.0f);
 
-        glLineWidth(4.0f);
-        l1.draw();
-        l2.draw();
-        l3.draw();
+        glUniform3f(glGetUniformLocation(lineShader.id, "lineColor"),
+                    1.0f, 0.8f, 0.2f);
+        glLineWidth(2.0f);
+        curve.draw();
+        // l1.draw();
+        // l2.draw();
+        // l3.draw();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
