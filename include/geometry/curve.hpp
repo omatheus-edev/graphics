@@ -4,7 +4,7 @@
 #include <vector>
 #include <geometry/geometry.hpp>
 
-class Curve final : Geometry {
+class Curve final : public Geometry {
 private:
     std::pmr::vector<float> vertices;
     float xMin = -10.0f;
@@ -19,7 +19,7 @@ public:
 
     void setRange(float xmin, float xmax, float step = 0.05f);
 
-    void draw() override;
+    void draw() const override;
 
 protected:
     void loadVerticesObjects() override;

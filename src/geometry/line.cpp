@@ -22,7 +22,7 @@ void Line::loadVerticesObjects() {
     glBindVertexArray(0);
 }
 
-void Line::draw() {
+void Line::draw() const {
     glBindVertexArray(VAO);
     glDrawArrays(GL_LINES, 0, 2);
 }

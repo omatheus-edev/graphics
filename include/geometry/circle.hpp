@@ -2,11 +2,11 @@
 
 #include <geometry/geometry.hpp>
 
-class Circle final : Geometry {
+class Circle final : public Geometry {
 public: 
     Circle(float radius, unsigned int segments);
 
-    void draw() override;
+    void draw() const override;
 
 private:
     float radius;

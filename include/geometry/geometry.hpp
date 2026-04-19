@@ -8,7 +8,7 @@ public:
 
     unsigned int VAO = 0;
 
-    virtual void draw() = 0;
+    virtual void draw() const = 0;
 
 protected:
     virtual void loadVerticesObjects() = 0;

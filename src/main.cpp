@@ -5,8 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "input.hpp"
+#include "renderer.hpp"
 #include "geometry/triangle.hpp"
-#include "shader.hpp"
 #include "geometry/circle.hpp"
 #include "geometry/curve.hpp"
 #include "geometry/line.hpp"
@@ -38,41 +38,23 @@ int main() {
     Shader triangleShader("shaders/triangle.vs", "shaders/triangle.fs");
     Shader lineShader("shaders/line.vs", "shaders/line.fs");
     glm::mat4 projection = glm::ortho(-12.0f, 12.0f, -12.0f, 12.0f, -1.0f, 1.0f);
-    Circle circle(0.75f, 64);
     Triangle triangle;
     Line horizontal({-12.0f, 0}, {12.0f, 0});
     Line vertical({0, 12.0f}, {0, -12.0f});
-    Curve left(-12.0f, -0.01f, 0.02f);
-    Curve right(  0.01f,  12.0f, 0.0001f);
-
-    std::function func = [](float x) {
-        return 1.0f / x;
-    };
-    left.setFunction(func);
-    right.setFunction(func);
+    Renderer::setProjection(projection);
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
-        glClear(GL_COLOR_BUFFER_BIT);
+        Renderer::beginFrame();
 
-        // triangleShader.use();
-        // triangle.draw();
-        // circle.draw();
-
-        lineShader.use();
-
-        glUniformMatrix4fv(glGetUniformLocation(lineShader.id, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-        glUniform3f(glGetUniformLocation(lineShader.id, "lineColor"),
-                    1.0f, 1.0f, 1.0f);
+        Renderer::draw(triangle, triangleShader);
+        (glGetUniformLocation(lineShader.id, "lineColor"), 1.0f, 1.0f, 1.0f);
         glLineWidth(2.0f);
-
-        horizontal.draw();
-        vertical.draw();
-
-        glUniform3f(glGetUniformLocation(lineShader.id, "lineColor"),
-                    1.0f, 0.65f, 0.2f);
-        left.draw();
-        right.draw();
+        std::function lineSetup = [](const Shader& shader) {
+            shader.setVec3("lineColor", 1.0f, 1.0f, 1.0f);
+        };
+        Renderer::draw(horizontal, lineShader, glm::mat4(1.0), lineSetup);
+        Renderer::draw(vertical, lineShader, glm::mat4(1.0), lineSetup);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

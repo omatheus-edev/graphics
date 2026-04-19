@@ -48,7 +48,7 @@ void Curve::loadVerticesObjects() {
     glBindVertexArray(0);
 }
 
-void Curve::draw() {
+void Curve::draw() const {
     if (VAO == 0 || vertices.empty()) return;
     glBindVertexArray(VAO);
     glDrawArrays(GL_LINE_STRIP, 0, static_cast<GLsizei>(vertices.size() / 3));

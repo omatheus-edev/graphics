@@ -2,7 +2,7 @@
 
 #include "geometry/geometry.hpp"
 
-class Line final : Geometry {
+class Line final : public Geometry {
 public:
     struct Point {
         float x;
@@ -15,7 +15,7 @@ public:
 
     Line(const Point& p1, const Point& p2);
 
-    void draw() override;
+    void draw() const override;
 
 protected:
     void loadVerticesObjects() override;

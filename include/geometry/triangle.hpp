@@ -2,18 +2,18 @@
 
 #include <geometry/geometry.hpp>
 
-class Triangle final : Geometry {
+class Triangle final : public Geometry {
 public:
     Triangle();
 
-    void draw() override;
+    void draw() const override;
 
 private:
     const float vertices[18] = {
         //   positions      // colors
-        0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-        -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-        0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f
+        5.0f, -5.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+        -5.0f, -5.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 5.0f, 0.0f, 0.0f, 0.0f, 1.0f
     };
 
 protected:

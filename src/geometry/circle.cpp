@@ -36,7 +36,7 @@ void Circle::loadVerticesObjects() {
     glBindVertexArray(0);
 }
 
-void Circle::draw() {
+void Circle::draw() const {
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLE_FAN, 0, segments + 2);
 }

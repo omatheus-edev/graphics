@@ -21,7 +21,7 @@ void Triangle::loadVerticesObjects() {
     glBindVertexArray(0);
 }
 
-void Triangle::draw() {
+void Triangle::draw() const {
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
