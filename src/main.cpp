@@ -11,11 +11,16 @@
 #include "geometry/curve.hpp"
 #include "geometry/line.hpp"
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int heigh) {
-    glViewport(0, 0, width, heigh);
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+    glViewport(0, 0, width, height);
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    for (int i = 1; i < argc; i++) {
+        if (std::string(argv[i]) == "--x11") {
+            glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
+        }
+    }
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR , 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR , 3);
