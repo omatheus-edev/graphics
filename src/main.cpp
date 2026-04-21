@@ -6,6 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "input.hpp"
 #include "renderer.hpp"
+#include "geometry/cube.hpp"
 #include "geometry/triangle.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
@@ -39,19 +40,24 @@ int main(int argc, char* argv[]) {
     }
 
     Shader triangleShader("shaders/triangle.vs", "shaders/triangle.fs");
-    glm::mat4 projection = glm::ortho(-12.0f, 12.0f, -12.0f, 12.0f, -1.0f, 1.0f);
-    Triangle triangle;
+    // glm::mat4 projection = glm::ortho(-12.0f, 12.0f, -12.0f, 12.0f, -20.0f, 20.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f),800.0f / 600.0f,0.1f,100.0f);
+    glm::mat4 view = glm::mat4(1.0f);
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -12.0f));
     Renderer::setProjection(projection);
-    Renderer::setView(glm::mat4(1.0f));
+    Renderer::setView(view);
+    glEnable(GL_DEPTH_TEST);
+    Cube cube;
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
         Renderer::beginFrame();
 
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.5f, -0.5f, 0.0f));
-        model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(0.0, 0.0, 1.0));
-        Renderer::draw(triangle, triangleShader, model);
+        model = glm::rotate(model, (float) glfwGetTime() * 0.8f, glm::vec3(0.0, 1.0, 0.0));
+        model = glm::rotate(model, glm::radians(25.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+        Renderer::draw(cube, triangleShader, model);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
