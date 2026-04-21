@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
     // glm::mat4 projection = glm::ortho(-12.0f, 12.0f, -12.0f, 12.0f, -20.0f, 20.0f);
     glm::mat4 projection = glm::perspective(glm::radians(45.0f),800.0f / 600.0f,0.1f,100.0f);
     glm::mat4 view = glm::mat4(1.0f);
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -12.0f));
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -18.0f));
     Renderer::setProjection(projection);
     Renderer::setView(view);
     glEnable(GL_DEPTH_TEST);
