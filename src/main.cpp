@@ -7,9 +7,6 @@
 #include "input.hpp"
 #include "renderer.hpp"
 #include "geometry/triangle.hpp"
-#include "geometry/circle.hpp"
-#include "geometry/curve.hpp"
-#include "geometry/line.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
@@ -21,6 +18,7 @@ int main(int argc, char* argv[]) {
             glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
         }
     }
+    setenv("XDG_SESSION_TYPE", "x11", 1);
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR , 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR , 3);
@@ -41,25 +39,19 @@ int main(int argc, char* argv[]) {
     }
 
     Shader triangleShader("shaders/triangle.vs", "shaders/triangle.fs");
-    Shader lineShader("shaders/line.vs", "shaders/line.fs");
     glm::mat4 projection = glm::ortho(-12.0f, 12.0f, -12.0f, 12.0f, -1.0f, 1.0f);
     Triangle triangle;
-    Line horizontal({-12.0f, 0}, {12.0f, 0});
-    Line vertical({0, 12.0f}, {0, -12.0f});
     Renderer::setProjection(projection);
+    Renderer::setView(glm::mat4(1.0f));
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
         Renderer::beginFrame();
 
-        Renderer::draw(triangle, triangleShader);
-        (glGetUniformLocation(lineShader.id, "lineColor"), 1.0f, 1.0f, 1.0f);
-        glLineWidth(2.0f);
-        std::function lineSetup = [](const Shader& shader) {
-            shader.setVec3("lineColor", 1.0f, 1.0f, 1.0f);
-        };
-        Renderer::draw(horizontal, lineShader, glm::mat4(1.0), lineSetup);
-        Renderer::draw(vertical, lineShader, glm::mat4(1.0), lineSetup);
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.5f, -0.5f, 0.0f));
+        model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(0.0, 0.0, 1.0));
+        Renderer::draw(triangle, triangleShader, model);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
