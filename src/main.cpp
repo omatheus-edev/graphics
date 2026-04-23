@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include "camera.hpp"
 #include "input.hpp"
 #include "renderer.hpp"
 #include "geometry/cube.hpp"
@@ -62,8 +64,13 @@ int main(int argc, char* argv[]) {
         glm::vec3(-1.3f,  1.0f,  -1.5f)
     };
 
+    Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+    g_camera = &camera;
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(window, mouseCallback);
     while (!glfwWindowShouldClose(window)) {
-        processInput(window);
+        processInput(window, camera);
+        Renderer::setView(camera.view);
         Renderer::beginFrame();
 
         for (unsigned int i = 0; i < 10; i++) {
